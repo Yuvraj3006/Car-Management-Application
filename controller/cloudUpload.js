@@ -1,4 +1,4 @@
-const cloudinary = require("cloudinary").v2
+const cloudinary = require("cloudinary").v2;
 require('dotenv').config()
 const fs = require('fs');
 
@@ -27,10 +27,6 @@ const uploadOnCloudinary = async (localFilePath) => {
 
     } catch (error) {
         console.error("Error uploading to Cloudinary:", error);
-
-        // Attempt to delete the local file if it exists
-        
-
         return null;
     }
 };

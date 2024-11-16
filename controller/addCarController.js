@@ -2,6 +2,7 @@ const db = require("../model/database");
 const uploadImages = require("../utils/imageUpload");
 const cloudin = require("../controller/cloudUpload");
 
+
 async function handleAddCar(req, res) {
     const { carNumber, carName, carType, carCompany, carDescription, carFuel, carTags } = req.body;
     console.log(req.body);
@@ -27,21 +28,21 @@ async function handleAddCar(req, res) {
             return res.status(400).send({message : "Please add images to the car"});
         }
 
-        const imageUrls = []
+        const imageUrls = [];
         for (const file of req.files) {
             const filepath = file.path;
             const result = await cloudin(filepath);
             const imageUrl = result;
             imageUrls.push(imageUrl);   
         }
-        console.log(imageUrls);
+        
 
         // Insert new car details
         const insertDetailsQuery = `
-            INSERT INTO carDetails (carNumber, car_name, car_type, car_company, car_description, car_fuel, car_tags)
-            VALUES ($1, $2, $3, $4, $5, $6, $7)
+            INSERT INTO carDetails (carNumber, car_name, car_type, car_company, car_description, car_fuel, car_tags,useremail)
+            VALUES ($1, $2, $3, $4, $5, $6, $7,$8)
         `;
-        const insertDetails = [carNumber, carName, carType, carCompany, carDescription, carFuel, carTags];
+        const insertDetails = [carNumber, carName, carType, carCompany, carDescription, carFuel, carTags,req.user.useremail];
         await db.query(insertDetailsQuery, insertDetails);
 
         const insertImagesQuery = `INSERT INTO car_images (carNumber,carImages) VALUES ($1,$2)`;

@@ -8,13 +8,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.set('views',path.resolve("./views"));
 
+//routes
 const userAuthRoute = require("./routes/userAuthRoute")
 const addCarRoute = require("./routes/addCarRoute")
+const homePageRoute = require("./routes/homePageRoute")
 
-
-app.use("/login",userAuthRoute);
+app.use("/user",userAuthRoute);
 app.use("/addCar",addCarRoute)
-
+app.use("/",homePageRoute);
 
 app.listen( 8000 || process.env.PORT,() => {
     console.log(`Server running on port ${8000}`)

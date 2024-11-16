@@ -14,3 +14,15 @@ create table car_images(
 	carNumber varchar(10) references carDetails(carNumber) on delete cascade,
 	carImages text[]
 );
+
+create table users(
+	serialnum serial,
+	username text,
+	useremail primary key,
+	userpassword text,
+);
+
+ALTER TABLE cardetails 
+ADD COLUMN useremail VARCHAR,
+ADD CONSTRAINT fk_useremail FOREIGN KEY (useremail) REFERENCES users(useremail);
+
