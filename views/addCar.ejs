@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Car</title>
+    <link rel="stylesheet" href="/views/style/addCar.css"> <!-- Link to external CSS -->
+</head>
+<body>
+    <header>
+        <h1>Add a New Car</h1>
+        <a href="/home">Back to Home</a>
+    </header>
+
+    <main>
+        <form id="addCarForm" method="POST" action="/addCar" enctype="multipart/form-data">
+            <label for="carNumber">Car Number:</label>
+            <input type="text" name="carNumber" required/>
+
+            <label for="carName">Car Name:</label>
+            <input type="text" name="carName" required/>
+
+            <label for="carType">Car Type:</label>
+            <input type="text" name="carType" required/>
+
+            <label for="carCompany">Car Company:</label>
+            <input type="text" name="carCompany" required/>
+
+            <label for="carDescription">Description:</label>
+            <textarea name="carDescription" required></textarea>
+
+            <label for="carFuel">Fuel Type:</label>
+            <input type="text" name="carFuel" required/>
+
+            <label for="carTags">Tags (comma-separated):</label>
+            <input type="text" name="carTags" required/>
+
+            <label for="images">Upload Images:</label>
+            <input type="file" name="images" multiple accept="image/*" required/>
+
+            <button type="submit">Add Car</button>
+        </form>
+
+        <!-- Error messages will be displayed here -->
+        <% if (error) { %>
+            <div class="error-message"><%= error %></div>
+        <% } %>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Car Listings. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

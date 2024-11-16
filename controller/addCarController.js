@@ -1,6 +1,6 @@
 const db = require("../model/database");
 const uploadImages = require("../utils/imageUpload");
-const cloudin = require("../controller/cloudUpload");
+const {uploadOnCloudinary} = require("../controller/cloudUpload");
 
 
 async function handleAddCar(req, res) {
@@ -31,7 +31,7 @@ async function handleAddCar(req, res) {
         const imageUrls = [];
         for (const file of req.files) {
             const filepath = file.path;
-            const result = await cloudin(filepath);
+            const result = await uploadOnCloudinary(filepath);
             const imageUrl = result;
             imageUrls.push(imageUrl);   
         }

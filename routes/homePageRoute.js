@@ -4,6 +4,6 @@ const authenticateUser = require("../middleware/userAuthencation");
 
 const router = express.Router();
 
-router.get("/",authenticateUser,handleHomePage);
+router.get("/",handleHomePage);
 
-module.exports = handleHomePage;
+module.exports = router;

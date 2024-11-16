@@ -3,8 +3,12 @@ const { handleUserLogin, handleUserRegistration } = require("../controller/userC
 
 const router = express.Router();
 
-router.get('/' , (req,res) => {
+router.get('/login' , (req,res) => {
     res.render("login")
+})
+
+router.get("/signup",(req,res) => {
+    res.render("signup");
 })
 
 router.post("/login",handleUserLogin);

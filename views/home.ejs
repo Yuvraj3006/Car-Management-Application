@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Listings</title>
+    <link rel="stylesheet" href="/views/style/home.css"> <!-- Link to external CSS -->
+</head>
+<body>
+    <header>
+        <h1>Welcome to Your Car Listings</h1>
+        <form method="GET" action="/home" class="search-form">
+            <input type="text" name="search" placeholder="Search for cars..." />
+            <button type="submit">Search</button>
+        </form>
+    </header>
+
+    <main>
+        <% if (carsWithImages && carsWithImages.length > 0) { %>
+            <div class="car-list">
+                <% carsWithImages.forEach(car => { %>
+                    <div class="car-item">
+                        <img src="<%= car.imageurl %>" alt="<%= car.carname %>" class="car-image"/>
+                        <h2><%= car.carname %></h2>
+                        <p><strong>Type:</strong> <%= car.cartype %></p>
+                        <p><strong>Tags:</strong> <%= car.cartags %></p>
+                        <!-- Link to Car Details Page -->
+                        <a href="/carDetails?carNumber=<%= carnumber %>">View Details</a>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <p>No cars found.</p>
+        <% } %>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Car Listings. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

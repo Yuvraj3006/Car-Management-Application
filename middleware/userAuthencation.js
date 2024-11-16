@@ -2,6 +2,7 @@ require('dotenv').config();
 const jwt = require("jsonwebtoken");
 
 async function authenticateUser(req, res, next) {
+    //console.log("Hello");
     const authHeader = req.header('Authorization');
     if (!authHeader) {
         console.log("Authorization header is missing");
@@ -9,7 +10,7 @@ async function authenticateUser(req, res, next) {
     }
 
     const token = authHeader.split(" ")[1];
-    console.log("Token received:", token);
+    //console.log("Token received:", token);
 
     if (!token) {
         return res.status(401).send({ message: "Access Denied: No Token Provided" });
@@ -17,7 +18,7 @@ async function authenticateUser(req, res, next) {
 
     try {
         const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-        console.log("Decoded payload:", decoded);
+        //console.log("Decoded payload:", decoded);
 
         req.user = decoded; // Attach decoded payload to req.user
         next();

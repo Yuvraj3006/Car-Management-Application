@@ -28,8 +28,13 @@ async function handleUserLogin(req, res) {
             if(!verify){
                 return res.status(400).send({ message : "Incorrect pasword. Please try again."})
             }
-            console.log(user.useremail);
-            return res.json(generateUserToken({username : user.username,useremail : user.useremail}));
+            //console.log(user.useremail);
+            const token = generateUserToken({username : user.username,useremail : user.useremail});
+            //console.log(token)
+            return res.status(200).send({
+                message: "Login successful",
+                token: token,
+            });
             
 
     } catch (error) {

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Details</title>
+    <link rel="stylesheet" href="/views/style/carDetails.css"> <!-- Link to external CSS -->
+</head>
+<body>
+    <header>
+        <h1>Car Details</h1>
+        <a href="/home">Back to Home</a>
+    </header>
+
+    <main>
+        <% if (car) { %>
+            <div class="car-details">
+                <h2><%= car.car_name %></h2>
+                <p><strong>Description:</strong> <%= car.car_description %></p>
+                <p><strong>Tags:</strong> <%= car.car_tags.join(', ') %></p>
+
+                <div class="car-images">
+                    <% images.forEach(image => { %>
+                        <img src="<%= image.carimages %>" alt="<%= car.car_name %>" class="car-image"/>
+                    <% }); %>
+                </div>
+
+                <form id="updateForm" method="POST" action="/updateCar?carnumber=<%= car.carNumber %>" enctype="multipart/form-data">
+                    <h3>Edit Car Details</h3>
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" value="<%= car.car_name %>" required/>
+
+                    <label for="description">Description:</label>
+                    <textarea name="description" required><%= car.car_description %></textarea>
+
+                    <label for="tags">Tags (comma-separated):</label>
+                    <input type="text" name="tags" value="<%= car.car_tags.join(', ') %>" />
+
+                    <label for="images">Upload New Images:</label>
+                    <input type="file" name="images" multiple accept="image/*"/>
+
+                    <div class="remove-images">
+                        <h4>Remove Images:</h4>
+                        <% images.forEach(image => { %>
+                            <div class="image-checkbox">
+                                <input type="checkbox" name="removedImages" value="<%= image.carimages %>"/>
+                                <img src="<%= image.carimages %>" alt="<%= car.car_name %>" class="car-image"/>
+                            </div>
+                        <% }); %>
+                    </div>
+
+                    <button type="submit">Update Car Details</button>
+                </form>
+
+                <button id="deleteButton">Delete Car</button>
+            </div>
+        <% } else { %>
+            <p>No car details found.</p>
+        <% } %>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Car Listings. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript for handling delete action -->
+    <script>
+        document.getElementById('deleteButton').addEventListener('click', function() {
+            const confirmation = confirm("Are you sure you want to delete this car?");
+            if (confirmation) {
+                const carNumber = "<%= car.carNumber %>";
+                fetch(`/deleteCar?carnumber=${carNumber}`, {
+                    method: 'DELETE',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    window.location.href = '/home'; // Redirect after deletion
+                })
+                .catch(error => {
+                    console.error('Error deleting car:', error);
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+/* Existing styles... */
+
+.car-details {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.car-images {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.car-image {
+    max-width: 150px;
+    margin: 10px;
+}
+
+.remove-images {
+    margin-top: 20px;
+}
+
+.image-checkbox {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+button {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}

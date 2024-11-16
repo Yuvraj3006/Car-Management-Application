@@ -12,10 +12,15 @@ app.set('views',path.resolve("./views"));
 const userAuthRoute = require("./routes/userAuthRoute")
 const addCarRoute = require("./routes/addCarRoute")
 const homePageRoute = require("./routes/homePageRoute")
+const specificPageRoute = require("./routes/specificPageRoute")
+
+
 
 app.use("/user",userAuthRoute);
 app.use("/addCar",addCarRoute)
 app.use("/",homePageRoute);
+app.use("/specificCar",specificPageRoute)
+
 
 app.listen( 8000 || process.env.PORT,() => {
     console.log(`Server running on port ${8000}`)
