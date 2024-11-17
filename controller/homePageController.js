@@ -3,7 +3,8 @@ const db = require("../model/database");
 async function handleHomePage(req, res) {
     try {
         // Ensure req.user is populated
-            const useremail = req.user?.useremail;
+        const useremail = req.user;
+       // console.log(useremail);
         if (!useremail) {
             return res.status(401).send({ error: "Unauthorized access. User not authenticated." });
         }
@@ -15,7 +16,7 @@ async function handleHomePage(req, res) {
         let query = `
             SELECT c.carNumber, c.car_name, c.car_tags, c.car_type, ci.carimages
             FROM cardetails c
-            JOIN car_images ci ON c.carNumber = ci.CarNumber
+            JOIN car_images ci ON c.carNumber = ci.carNumber
             WHERE c.useremail = $1
         `;
         
@@ -34,13 +35,13 @@ async function handleHomePage(req, res) {
         const result = await db.query(query, searchKeyword ? [useremail, `%${searchKeyword}%`] : [useremail]);
 
         // If no cars are found
-        if (result.rowCount === 0) {
+        /*if (result.rowCount === 0) {
             return res.status(404).send({ message: "No cars found." });
-        }
-
+        }*/
+        //console.log(result.rows[0]);
         // Map the query result to the desired format
         const carsWithImages = result.rows.map(row => ({
-            carnumber: row.carNumber,
+            carnumber: row.carnumber,
             imageurl: row.carimages, // Ensure this matches the database column
             cartype: row.car_type,
             carname: row.car_name,
@@ -48,7 +49,7 @@ async function handleHomePage(req, res) {
         }));
 
         // Send the response
-        res.status(200).json({ carsWithImages });
+        res.render('home', { carsWithImages });   
     } catch (error) {
         console.error(`${error} : Error occurred while loading cars or images`);
         res.status(500).send({ error: "Internal Server Error" });

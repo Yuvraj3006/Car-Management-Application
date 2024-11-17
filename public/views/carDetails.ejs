@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Details</title>
-    <link rel="stylesheet" href="/views/style/carDetails.css"> <!-- Link to external CSS -->
+    <link rel="stylesheet" href="/style/carDetails.css"> <!-- Link to external CSS -->
 </head>
 <body>
     <header>
         <h1>Car Details</h1>
-        <a href="/home">Back to Home</a>
+        <a href="/">Back to Home</a>
     </header>
 
     <main>
@@ -20,12 +20,17 @@
                 <p><strong>Tags:</strong> <%= car.car_tags.join(', ') %></p>
 
                 <div class="car-images">
-                    <% images.forEach(image => { %>
-                        <img src="<%= image.carimages %>" alt="<%= car.car_name %>" class="car-image"/>
-                    <% }); %>
+                    <% if (images && images.carimages) { %>
+                        <% images.carimages.forEach(image => { %>
+                            <img src="<%= image %>" alt="<%= car.car_name %>" class="car-image"/>
+                        <% }); %>
+                    <% } else { %>
+                        <p>No images available for this car.</p>
+                    <% } %>
                 </div>
-
-                <form id="updateForm" method="POST" action="/updateCar?carnumber=<%= car.carNumber %>" enctype="multipart/form-data">
+                
+                <!-- Update Car Details Form -->
+                <form id="updateForm" method="POST" action="/specificCar/updateDetails?carnumber=<%= car.carnumber %>" enctype="multipart/form-data">
                     <h3>Edit Car Details</h3>
                     <label for="title">Title:</label>
                     <input type="text" name="title" value="<%= car.car_name %>" required/>
@@ -37,21 +42,22 @@
                     <input type="text" name="tags" value="<%= car.car_tags.join(', ') %>" />
 
                     <label for="images">Upload New Images:</label>
-                    <input type="file" name="images" multiple accept="image/*"/>
+                    <input type="file" name="carimages" multiple accept="image/*"/>
 
                     <div class="remove-images">
                         <h4>Remove Images:</h4>
-                        <% images.forEach(image => { %>
+                        <% images.carimages.forEach(image => { %>
                             <div class="image-checkbox">
-                                <input type="checkbox" name="removedImages" value="<%= image.carimages %>"/>
-                                <img src="<%= image.carimages %>" alt="<%= car.car_name %>" class="car-image"/>
+                                <input type="checkbox" name="removedImages" value="<%= image %>"/>
+                                <img src="<%= image %>" alt="<%= car.car_name %>" class="car-image"/>
                             </div>
-                        <% }); %>
+                        <% }); %>                        
                     </div>
 
                     <button type="submit">Update Car Details</button>
                 </form>
 
+                <!-- Delete Car Button -->
                 <button id="deleteButton">Delete Car</button>
             </div>
         <% } else { %>
@@ -68,14 +74,23 @@
         document.getElementById('deleteButton').addEventListener('click', function() {
             const confirmation = confirm("Are you sure you want to delete this car?");
             if (confirmation) {
-                const carNumber = "<%= car.carNumber %>";
-                fetch(`/deleteCar?carnumber=${carNumber}`, {
+                const carNumber = "<%= car.carnumber %>";
+                if (!carNumber) {
+                    alert("Car number is undefined.");
+                    return;
+                }
+
+                fetch(`/specificCar/deleteCar?carnumber=${carNumber}`, {
                     method: 'DELETE',
                 })
                 .then(response => response.json())
                 .then(data => {
-                    alert(data.message);
-                    window.location.href = '/home'; // Redirect after deletion
+                    if (data.success) {
+                        alert(data.message);
+                        window.location.href = '/'; // Redirect after successful deletion
+                    } else {
+                        alert("Failed to delete car: " + data.message);
+                    }
                 })
                 .catch(error => {
                     console.error('Error deleting car:', error);

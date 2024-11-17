@@ -4,9 +4,11 @@ const upload = require("../middleware/multer");
 const authenticateUser = require("../middleware/userAuthencation");
 const router = express.Router();
 
-
+router.get("/",(req,res) => {
+    res.render('addCar')
+})
 //call route /login -> middleware -> controller(handles data)
-router.post("/",authenticateUser,upload.array('carImages',10), handleAddCar);
+router.post("/",authenticateUser,upload.array("carImages",10), handleAddCar);
 
 //localhost:8000/addCar
 module.exports = router;

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Car</title>
-    <link rel="stylesheet" href="/views/style/addCar.css"> <!-- Link to external CSS -->
+    <link rel="stylesheet" href="/style/addCar.css"> <!-- Link to external CSS -->
 </head>
 <body>
     <header>
@@ -35,16 +35,14 @@
             <label for="carTags">Tags (comma-separated):</label>
             <input type="text" name="carTags" required/>
 
-            <label for="images">Upload Images:</label>
-            <input type="file" name="images" multiple accept="image/*" required/>
+            <label for="carImages">Upload Images:</label>
+            <input type="file" name="carImages" multiple accept="image/*" required/>
 
             <button type="submit">Add Car</button>
         </form>
 
         <!-- Error messages will be displayed here -->
-        <% if (error) { %>
-            <div class="error-message"><%= error %></div>
-        <% } %>
+       
     </main>
 
     <footer>

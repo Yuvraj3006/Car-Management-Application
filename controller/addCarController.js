@@ -5,7 +5,7 @@ const {uploadOnCloudinary} = require("../controller/cloudUpload");
 
 async function handleAddCar(req, res) {
     const { carNumber, carName, carType, carCompany, carDescription, carFuel, carTags } = req.body;
-    console.log(req.body);
+    //console.log(req.body);
 
     try {
         // Check for missing fields
@@ -35,6 +35,9 @@ async function handleAddCar(req, res) {
             const imageUrl = result;
             imageUrls.push(imageUrl);   
         }
+
+        const car_Tags = carTags.split(',').map(tag => tag.trim());
+
         
 
         // Insert new car details
@@ -42,7 +45,7 @@ async function handleAddCar(req, res) {
             INSERT INTO carDetails (carNumber, car_name, car_type, car_company, car_description, car_fuel, car_tags,useremail)
             VALUES ($1, $2, $3, $4, $5, $6, $7,$8)
         `;
-        const insertDetails = [carNumber, carName, carType, carCompany, carDescription, carFuel, carTags,req.user.useremail];
+        const insertDetails = [carNumber, carName, carType, carCompany, carDescription, carFuel, car_Tags,req.user];
         await db.query(insertDetailsQuery, insertDetails);
 
         const insertImagesQuery = `INSERT INTO car_images (carNumber,carImages) VALUES ($1,$2)`;
@@ -50,7 +53,9 @@ async function handleAddCar(req, res) {
         await db.query(insertImagesQuery,insertImagesDetails);
 
         // Success response
-        res.status(201).send({ message: "Car added successfully" });
+        res.redirect("/");
+        //res.status(201).send({ message: "Car added successfully" });
+        
     } catch (error) {
         console.error(`Error while adding car: ${error.message}`);
         res.status(500).send({ error: "An error occurred while adding the car." });

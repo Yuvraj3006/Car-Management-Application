@@ -18,8 +18,8 @@ create table car_images(
 create table users(
 	serialnum serial,
 	username text,
-	useremail primary key,
-	userpassword text,
+	useremail text primary key,
+	userpassword text
 );
 
 ALTER TABLE cardetails 

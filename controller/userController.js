@@ -26,17 +26,13 @@ async function handleUserLogin(req, res) {
             
             const verify = await bcrypt.compare(userpassword,user.userpassword);
             if(!verify){
-                return res.status(400).send({ message : "Incorrect pasword. Please try again."})
+                return res.render('login')
             }
             //console.log(user.useremail);
             const token = generateUserToken({username : user.username,useremail : user.useremail});
-            //console.log(token)
-            return res.status(200).send({
-                message: "Login successful",
-                token: token,
-            });
-            
-
+            //console.log("login function " ,token)
+            res.cookie('auth_token',token,{httpOnly : true, maxAge : 3 * 24 * 60 * 60 * 1000});
+            return res.redirect('/');
     } catch (error) {
         console.log(`error : ${error}`);
         return res.status(500).send({message : "Internal Server Error"});
@@ -73,8 +69,10 @@ async function handleUserRegistration(req,res) {
         const userCreationQuery = `INSERT INTO users (username, useremail, userpassword) VALUES ($1,$2,$3)`;
         const userCreationDetails = [username,useremail,hashedPassword];
         await db.query(userCreationQuery,userCreationDetails);
-        return res.json(generateUserToken({username : username,useremail : useremail}));
-
+       
+        const token =generateUserToken({username : username,useremail : useremail})
+        res.cookie('auth_token',token,{httpOnly : true, maxAge : 3 * 24 * 60 * 60 * 1000});
+        return res.redirect('/');
     } catch (error) {
         console.log(`error : ${error}`);
         return res.status(500).send({ message : "Internal Server Error"});
@@ -82,7 +80,12 @@ async function handleUserRegistration(req,res) {
     
 }
 
+async function handleUserLogout(req,res) {
+    res.cookie('auth_token' , " ", {maxAge : 1});
+    res.redirect("/");
+}
+
 
 module.exports = {
-    handleUserLogin,handleUserRegistration
+    handleUserLogin,handleUserRegistration, handleUserLogout
 }

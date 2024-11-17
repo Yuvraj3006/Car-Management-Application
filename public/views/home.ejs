@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Listings</title>
-    <link rel="stylesheet" href="/views/style/home.css"> <!-- Link to external CSS -->
+    <link rel="stylesheet" href="/style/home.css"> <!-- Link to external CSS -->
 </head>
 <body>
     <header>
@@ -13,6 +13,10 @@
             <input type="text" name="search" placeholder="Search for cars..." />
             <button type="submit">Search</button>
         </form>
+        <div class="header-actions">
+            <a href="/addCar" class="add-car-button">Add Car</a> <!-- Button to add a new car -->
+            <a href="/logout" class="logout-button">Logout</a> <!-- Logout link -->
+        </div>
     </header>
 
     <main>
@@ -20,12 +24,13 @@
             <div class="car-list">
                 <% carsWithImages.forEach(car => { %>
                     <div class="car-item">
-                        <img src="<%= car.imageurl %>" alt="<%= car.carname %>" class="car-image"/>
+                        <img src="<%= car.imageurl[0]%>" class="car-image"/>
                         <h2><%= car.carname %></h2>
+                        <h2><%= car.carnumber %></h2>
                         <p><strong>Type:</strong> <%= car.cartype %></p>
                         <p><strong>Tags:</strong> <%= car.cartags %></p>
                         <!-- Link to Car Details Page -->
-                        <a href="/carDetails?carNumber=<%= carnumber %>">View Details</a>
+                        <a href="/specificCar?carnumber=<%= car.carnumber%>">View Details</a>
                     </div>
                 <% }); %>
             </div>
