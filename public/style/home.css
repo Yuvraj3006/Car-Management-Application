@@ -1,38 +1,86 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
+    color: #333;
 }
 
+/* Header Section */
 header {
     background-color: #333;
     color: #fff;
     padding: 20px;
     text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin-bottom: 10px;
+    font-size: 2rem;
 }
 
 .search-form {
-    margin-top: 10px;
+    display: inline-block;
+    margin: 10px auto;
 }
 
 .search-form input[type="text"] {
     padding: 10px;
     width: 250px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-right: 5px;
+    font-size: 1rem;
 }
 
 .search-form button {
-    padding: 10px;
+    padding: 10px 15px;
     background-color: #5cb85c;
     color: white;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .search-form button:hover {
     background-color: #4cae4c;
+    transform: translateY(-2px);
 }
 
+.header-actions {
+    margin-top: 15px;
+}
+
+.header-actions a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.header-actions a:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Main Section */
 main {
     padding: 20px;
 }
@@ -40,27 +88,110 @@ main {
 .car-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    gap: 20px;
+    justify-content: center;
 }
 
 .car-item {
     background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin: 10px;
-    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     text-align: center;
-    width: calc(33% - 40px); /* Three items per row */
+    width: calc(33% - 40px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.car-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .car-image {
     max-width: 100%;
-    height: auto;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
+.car-item h2 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    color: #4CAF50;
+}
+
+.car-item p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+.car-item a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    color: white;
+    background-color: #5cb85c;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.car-item a:hover {
+    background-color: #4cae4c;
+    transform: translateY(-2px);
+}
+
+/* Footer Section */
 footer {
     text-align: center;
-    padding: 10px;
+    padding: 15px;
     background-color: #333;
     color: white;
+    font-size: 0.9rem;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .car-item {
+        width: calc(50% - 40px); /* Two items per row */
+    }
+
+    .search-form input[type="text"] {
+        width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .car-item {
+        width: calc(100% - 40px); /* One item per row */
+    }
+
+    .search-form input[type="text"] {
+        width: 100%;
+    }
+
+    .search-form button {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .header-actions a {
+        display: inline-block;
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+
+    footer {
+        font-size: 0.8rem;
+    }
 }

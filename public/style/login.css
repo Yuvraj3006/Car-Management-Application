@@ -1,73 +1,143 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4; /* Light gray background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Ensure full-screen height */
 }
 
+/* Container */
 .container {
     width: 100%;
     max-width: 400px; /* Maximum width for the form container */
-    margin: 100px auto; /* Centering the container */
-    padding: 20px;
+    margin: 20px auto; /* Centering the container */
+    padding: 20px 30px;
     background-color: white; /* White background for the form */
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border-radius: 10px; /* Smooth rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    animation: fadeIn 0.5s ease; /* Smooth fade-in effect */
 }
 
+/* Heading */
 h1 {
     text-align: center; /* Centered heading */
     color: #333; /* Dark gray color for text */
+    margin-bottom: 20px;
+    font-size: 1.8rem; /* Slightly larger font */
 }
 
+/* Form Group */
 .form-group {
-    margin-bottom: 15px; /* Space between form groups */
+    margin-bottom: 20px; /* Space between form groups */
 }
 
 label {
     display: block; /* Block display for labels */
     margin-bottom: 5px; /* Space below labels */
     color: #555; /* Medium gray color for labels */
+    font-size: 0.9rem; /* Slightly smaller font for labels */
 }
 
+/* Input Fields */
 input[type="email"],
 input[type="password"] {
     width: 100%; /* Full width inputs */
-    padding: 10px; /* Padding inside inputs */
-    border-radius: 3px; /* Rounded corners for inputs */
+    padding: 12px; /* Extra padding for better touch experience */
+    border-radius: 5px; /* Rounded corners for inputs */
     border: 1px solid #ccc; /* Light gray border */
+    font-size: 1rem; /* Comfortable font size */
+    transition: all 0.3s ease; /* Smooth transition on focus */
 }
 
 input[type="email"]:focus,
 input[type="password"]:focus {
     border-color: #5cb85c; /* Green border on focus */
+    box-shadow: 0 0 5px rgba(92, 184, 92, 0.5); /* Subtle green glow */
     outline: none; /* Remove default outline */
 }
 
+/* Button */
 button {
     width: 100%; /* Full width button */
-    padding: 10px;
+    padding: 12px;
     background-color: #5cb85c; /* Green background for button */
     color: white; /* White text color */
     border: none; /* No border */
-    border-radius: 3px; /* Rounded corners for button */
+    border-radius: 5px; /* Rounded corners for button */
+    font-size: 1rem; /* Comfortable font size */
+    font-weight: bold; /* Bold text for emphasis */
     cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
 }
 
 button:hover {
     background-color: #4cae4c; /* Darker green on hover */
+    transform: translateY(-2px); /* Subtle lift effect */
 }
 
+/* Centered Paragraph */
 p {
     text-align: center; /* Centered paragraph text */
+    margin-top: 10px;
+    color: #666; /* Light gray text color */
+    font-size: 0.9rem;
 }
 
+/* Links */
 a {
     color: #5cb85c; /* Green color for links */
+    font-weight: bold; /* Slightly bolder for emphasis */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s ease; /* Smooth color transition */
 }
 
 a:hover {
+    color: #4cae4c; /* Darker green on hover */
     text-decoration: underline; /* Underline on hover for links */
 }
 
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
+/* Responsive Design */
+@media (max-width: 480px) {
+    .container {
+        padding: 15px; /* Reduce padding for smaller screens */
+    }
+
+    h1 {
+        font-size: 1.5rem; /* Adjust heading size */
+    }
+
+    input[type="email"],
+    input[type="password"] {
+        font-size: 0.9rem; /* Adjust font size for inputs */
+    }
+
+    button {
+        font-size: 0.9rem; /* Adjust button font size */
+    }
+
+    p {
+        font-size: 0.8rem; /* Adjust paragraph font size */
+    }
+}

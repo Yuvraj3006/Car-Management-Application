@@ -8,8 +8,10 @@
 </head>
 <body>
     <header>
-        <h1>Car Details</h1>
-        <a href="/">Back to Home</a>
+        <div class="header-container">
+            <h1>Car Details</h1>
+            <a href="/" class="home-button">Back to Home</a>
+        </div>
     </header>
 
     <main>
@@ -54,11 +56,12 @@
                         <% }); %>                        
                     </div>
 
-                    <button type="submit">Update Car Details</button>
+                    <!-- Buttons Row -->
+                    <div class="action-buttons">
+                        <button type="submit" class="update-button">Update Car Details</button>
+                        <button id="deleteButton" class="delete-button">Delete Car</button>
+                    </div>
                 </form>
-
-                <!-- Delete Car Button -->
-                <button id="deleteButton">Delete Car</button>
             </div>
         <% } else { %>
             <p>No car details found.</p>
