@@ -13,6 +13,6 @@ router.get("/signup",(req,res) => {
 
 router.post("/login",handleUserLogin);
 
-router.post("/register",handleUserRegistration);
+router.post("/signup",handleUserRegistration);
 
 module.exports = router;

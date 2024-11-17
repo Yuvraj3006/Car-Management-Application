@@ -2,6 +2,8 @@ const db = require("../model/database");
 
 async function handleHomePage(req, res) {
     try {
+        
+
         // Ensure req.user is populated
         const useremail = req.user;
        // console.log(useremail);
